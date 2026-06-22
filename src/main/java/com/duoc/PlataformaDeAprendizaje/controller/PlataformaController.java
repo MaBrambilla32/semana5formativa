@@ -22,8 +22,15 @@ public class PlataformaController {
     public List<Curso> obtenerCursos() {
         return cursoRepository.findAll();
     }
+
     @PostMapping("/cursos")
     public Curso crearCurso(@RequestBody Curso curso) {
-    return cursoRepository.save(curso);
+        return cursoRepository.save(curso);
     }
- }
+
+    // --- RUTA NUEVA AGREGADA PARA LAS GUÍAS ---
+    @GetMapping("/guias")
+    public List<String> obtenerGuias() {
+        return List.of("Guia 1: Backend destrabado", "Guia 2: El 401 era porque la ruta no existia");
+    }
+} 
