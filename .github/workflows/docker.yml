@@ -32,9 +32,9 @@ jobs:
         echo "spring.h2.console.enabled=true" >> src/main/resources/application.yml
         echo "aws.s3.bucket-name=${{ secrets.AWS_BUCKET_NAME }}" >> src/main/resources/application.yml
         echo "aws.region=us-east-1" >> src/main/resources/application.yml
-        echo "aws.accessKey=${{ secrets.AWS_ACCESS_KEY_ID }}" >> src/main/resources/application.yml
-        echo "aws.secretKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> src/main/resources/application.yml
-        echo "aws.sessionToken=${{ secrets.AWS_SESSION_TOKEN }}" >> src/main/resources/application.yml
+        echo "aws.access-key-id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> src/main/resources/application.yml
+        echo "aws.secret-access-key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> src/main/resources/application.yml
+        echo "aws.session-token=${{ secrets.AWS_SESSION_TOKEN }}" >> src/main/resources/application.yml 
         echo "spring.security.oauth2.resourceserver.jwt.issuer-uri=https://cloudrenemaria2026.b2clogin.com/cloudrenemaria2026.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_signupsignin" >> src/main/resources/application.yml
         echo "spring.security.oauth2.client.registration.azure.client-id=${{ secrets.AZURE_CLIENT_ID }}" >> src/main/resources/application.yml
 
@@ -52,4 +52,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: renedocker93/sistema-guias:latest 
+        tags: renedocker93/sistema-guias:latest  
