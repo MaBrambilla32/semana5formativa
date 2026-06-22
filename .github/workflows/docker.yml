@@ -1,0 +1,54 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Generar application.yml dinamico
+      run: |
+        mkdir -p src/main/resources
+        echo "server.port=3000" > src/main/resources/application.yml
+        echo "spring.datasource.url=jdbc:h2:mem:testdb" >> src/main/resources/application.yml
+        echo "spring.datasource.driver-class-name=org.h2.Driver" >> src/main/resources/application.yml
+        echo "spring.datasource.username=sa" >> src/main/resources/application.yml
+        echo "spring.datasource.password=" >> src/main/resources/application.yml
+        echo "spring.jpa.hibernate.ddl-auto=update" >> src/main/resources/application.yml
+        echo "spring.h2.console.enabled=true" >> src/main/resources/application.yml
+        echo "aws.s3.bucket-name=AQUI_VA_EL_NOMBRE_DE_TU_BUCKET_NUEVO" >> src/main/resources/application.yml
+        echo "aws.region=us-east-1" >> src/main/resources/application.yml
+        echo "aws.accessKey=${{ secrets.AWS_ACCESS_KEY_ID }}" >> src/main/resources/application.yml
+        echo "aws.secretKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> src/main/resources/application.yml
+        echo "aws.sessionToken=${{ secrets.AWS_SESSION_TOKEN }}" >> src/main/resources/application.yml
+        echo "spring.security.oauth2.resourceserver.jwt.issuer-uri=https://cloudrenemaria2026.b2clogin.com/cloudrenemaria2026.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_signupsignin" >> src/main/resources/application.yml
+        echo "spring.security.oauth2.client.registration.azure.client-id=a6273f28-404f-4745-ab04-15a51e9e9400" >> src/main/resources/application.yml
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: miguel1257/api-s3-ejemplo:latest
