@@ -20,23 +20,23 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Generar application.yml dinamico
+    - name: Generar application.properties dinamico
       run: |
         mkdir -p src/main/resources
-        echo "server.port=3000" > src/main/resources/application.yml
-        echo "spring.datasource.url=jdbc:h2:mem:testdb" >> src/main/resources/application.yml
-        echo "spring.datasource.driver-class-name=org.h2.Driver" >> src/main/resources/application.yml
-        echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/main/resources/application.yml
-        echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> src/main/resources/application.yml
-        echo "spring.jpa.hibernate.ddl-auto=update" >> src/main/resources/application.yml
-        echo "spring.h2.console.enabled=true" >> src/main/resources/application.yml
-        echo "aws.s3.bucket-name=${{ secrets.AWS_BUCKET_NAME }}" >> src/main/resources/application.yml
-        echo "aws.region=us-east-1" >> src/main/resources/application.yml
-        echo "aws.access-key-id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> src/main/resources/application.yml
-        echo "aws.secret-access-key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> src/main/resources/application.yml
-        echo "aws.session-token=${{ secrets.AWS_SESSION_TOKEN }}" >> src/main/resources/application.yml 
-        echo "spring.security.oauth2.resourceserver.jwt.issuer-uri=https://cloudrenemaria2026.b2clogin.com/cloudrenemaria2026.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_signupsignin" >> src/main/resources/application.yml
-        echo "spring.security.oauth2.client.registration.azure.client-id=${{ secrets.AZURE_CLIENT_ID }}" >> src/main/resources/application.yml
+        echo "server.port=3000" > src/main/resources/application.properties
+        echo "spring.datasource.url=jdbc:h2:mem:testdb" >> src/main/resources/application.properties
+        echo "spring.datasource.driver-class-name=org.h2.Driver" >> src/main/resources/application.properties
+        echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/main/resources/application.properties
+        echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> src/main/resources/application.properties
+        echo "spring.jpa.hibernate.ddl-auto=update" >> src/main/resources/application.properties
+        echo "spring.h2.console.enabled=true" >> src/main/resources/application.properties
+        echo "aws.s3.bucket-name=${{ secrets.AWS_BUCKET_NAME }}" >> src/main/resources/application.properties
+        echo "aws.region=us-east-1" >> src/main/resources/application.properties
+        echo "aws.access-key-id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> src/main/resources/application.properties
+        echo "aws.secret-access-key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> src/main/resources/application.properties
+        echo "aws.session-token=${{ secrets.AWS_SESSION_TOKEN }}" >> src/main/resources/application.properties
+        echo "spring.security.oauth2.resourceserver.jwt.issuer-uri=https://cloudrenemaria2026.b2clogin.com/cloudrenemaria2026.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_signupsignin" >> src/main/resources/application.properties
+        echo "spring.security.oauth2.client.registration.azure.client-id=${{ secrets.AZURE_CLIENT_ID }}" >> src/main/resources/application.properties
 
     - name: Build with Maven
       run: mvn -B package -DskipTests --file pom.xml
@@ -52,4 +52,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: renedocker93/sistema-guias:latest  
+        tags: renedocker93/sistema-guias:latest 
