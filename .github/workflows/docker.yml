@@ -30,7 +30,7 @@ jobs:
         echo "spring.datasource.password=" >> src/main/resources/application.yml
         echo "spring.jpa.hibernate.ddl-auto=update" >> src/main/resources/application.yml
         echo "spring.h2.console.enabled=true" >> src/main/resources/application.yml
-        echo "aws.s3.bucket-name=AQUI_VA_EL_NOMBRE_DE_TU_BUCKET_NUEVO" >> src/main/resources/application.yml
+        echo "aws.s3.bucket-name=aws.s3.bucket-name=cloud-s5-renemaria >> src/main/resources/application.yml
         echo "aws.region=us-east-1" >> src/main/resources/application.yml
         echo "aws.accessKey=${{ secrets.AWS_ACCESS_KEY_ID }}" >> src/main/resources/application.yml
         echo "aws.secretKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> src/main/resources/application.yml
