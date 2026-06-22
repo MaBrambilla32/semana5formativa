@@ -13,15 +13,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // Exige que todas las peticiones de la plataforma educativa estén autenticadas
+            // Deja públicas las rutas del CRUD de guías y exige token para el resto
             .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/api/guias/**").permitAll()
                 .anyRequest().authenticated()
             )
             // Configura el backend como Resource Server que valida tokens JWT emitidos por OAuth2 (Azure AD B2C)
             .oauth2ResourceServer(oauth2 -> oauth2
                 .jwt(jwt -> {})
             );
-            
+
         return http.build();
     }
-}
+} 
