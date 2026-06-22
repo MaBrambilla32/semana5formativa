@@ -26,8 +26,8 @@ jobs:
         echo "server.port=3000" > src/main/resources/application.yml
         echo "spring.datasource.url=jdbc:h2:mem:testdb" >> src/main/resources/application.yml
         echo "spring.datasource.driver-class-name=org.h2.Driver" >> src/main/resources/application.yml
-        echo "spring.datasource.username=azureuser" >> src/main/resources/application.yml
-        echo "spring.datasource.password=Proy" >> src/main/resources/application.yml
+        echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> src/main/resources/application.yml
+        echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> src/main/resources/application.yml
         echo "spring.jpa.hibernate.ddl-auto=update" >> src/main/resources/application.yml
         echo "spring.h2.console.enabled=true" >> src/main/resources/application.yml
         echo "aws.s3.bucket-name=${{ secrets.AWS_BUCKET_NAME }}" >> src/main/resources/application.yml
@@ -36,7 +36,7 @@ jobs:
         echo "aws.secretKey=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> src/main/resources/application.yml
         echo "aws.sessionToken=${{ secrets.AWS_SESSION_TOKEN }}" >> src/main/resources/application.yml
         echo "spring.security.oauth2.resourceserver.jwt.issuer-uri=https://cloudrenemaria2026.b2clogin.com/cloudrenemaria2026.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1_signupsignin" >> src/main/resources/application.yml
-        echo "spring.security.oauth2.client.registration.azure.client-id=a6273f28-404f-4745-ab04-15a51e9e9400" >> src/main/resources/application.yml
+        echo "spring.security.oauth2.client.registration.azure.client-id=${{ secrets.AZURE_CLIENT_ID }}" >> src/main/resources/application.yml
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
